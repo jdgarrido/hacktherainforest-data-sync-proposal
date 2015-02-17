@@ -2,8 +2,8 @@
 
 import threading #Know Whats going on in the server
 import random #generate some pseudo randoms
-import hashlib #hash the randoms for directories and security
 import sys #pass the file
+import uuid
 
 import BaseHTTPServer #Server
 import SocketServer #Server
@@ -11,34 +11,9 @@ import SocketServer #Server
 
 #Generating random path for showing hashes
 def getrandompath():
-	strings = "abcdefghijklmnopqrtuvwxyz"
-	nums = "1234567890"
-	alts = "!\"#$%&/()=?@"
-	s1 = random.choice(strings)
-	s2 = random.choice(strings)
-	s3 = random.choice(strings)
-	s4 = random.choice(strings)
-	s5 = random.choice(strings)
-	s6 = random.choice(strings)
-	s7 = random.choice(strings)
-	s8 = random.choice(strings)
-	s9 = random.choice(strings)
-	s10 = random.choice(strings)
-	n1 = random.choice(nums)
-	n2 = random.choice(nums)
-	n3 = random.choice(nums)
-	n4 = random.choice(nums)
-	n5 = random.choice(nums)
-	a1 = random.choice(alts)
-	a2 = random.choice(alts)
-	a3 = random.choice(alts)
-	a4 = random.choice(alts)
-	a5 = random.choice(alts)
-	
-	tohash = s1 + n1 + s2 + s3 + a1 + s4 + s5 + a2 + s6 + s7 + a3 + s8 + n2 + a4 + n3 + s9 + n4 + s10 + a5 + n5
-	return hashlib.sha256(tohash).hexdigest()
+	return uuid.uuid4().hex
 
-localhashdir = sys.argv[1]
+localhashdir = sys.argv[0]
 
 randomize = "/" + getrandompath() #Adding the / to make it path
 
